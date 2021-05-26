@@ -9,27 +9,13 @@ library(rasterVis) # raster visualization methods
 library(fields)# Curve / function fitting for spatial analyses
 library(sf)
 
-setwd("C:/Users/nisar/Desktop/R_wd")
+setwd("C:/Users/nisar/Desktop/R_wd/R")
 getwd()
 
 #load species coordinates
 coord <- shapefile("newcoord")
 plot(coord)
 points(coord)
-
-coordinates <- read.csv(file = 'Ines_coordinates.csv')
-head(coordinates)
-crs(coordinates)
-plot(coordinates)
-
-st_crs(27700)$proj4string
-coord2 = st_transform(coord, 27700)
-newcrs <- CRS("+proj=longlat +datum=OSGB36")
-newcrs <- CRS("+init=epsg:27700")
-crs(newcrs)
-bng <- "+init=epsg:27700"
-crs(bng)
-
 
 #load UK shapefile
 britain <- shapefile("infuse_ctry_2011.shp")
@@ -41,7 +27,7 @@ plot(coord, add=TRUE)
 #Downloading raster climate data from internet
 ?getData
 bioclimVars <- getData(name="worldclim", #other options available 
-                       res = 10, # resolution
+                       res = 2.5, # resolution
                        var = "bio") # which variable(s)?
 
 class(bioclimVars) # raster stack - same projection, spatial extent,
@@ -53,24 +39,24 @@ plot(bioclimVars) # takes a few seconds...plots first 16/19 in stack
 #And bio18 + bio19 for precipitation predictors.
 
 #Loading each single raster layer
-filePath <- paste(getwd(), "/wc10/bio19.bil", sep="")
+filePath <- paste(getwd(), "/wc2-5/bio19.bil", sep="")
 filePath
-bio2 <- raster(paste(getwd(), "/wc10/bio2.bil", sep=""))
-bio3 <- raster(paste(getwd(), "/wc10/bio3.bil", sep=""))
-bio4 <- raster(paste(getwd(), "/wc10/bio4.bil", sep=""))
-bio10 <- raster(paste(getwd(), "/wc10/bio10.bil", sep=""))
-bio11 <- raster(paste(getwd(), "/wc10/bio11.bil", sep=""))
-bio18 <- raster(paste(getwd(), "/wc10/bio18.bil", sep=""))
-bio19 <- raster(paste(getwd(), "/wc10/bio19.bil", sep=""))
+bio2 <- raster(paste(getwd(), "/wc2-5/bio2.bil", sep=""))
+bio3 <- raster(paste(getwd(), "/wc2-5/bio3.bil", sep=""))
+bio4 <- raster(paste(getwd(), "/wc2-5/bio4.bil", sep=""))
+bio10 <- raster(paste(getwd(), "/wc2-5/bio10.bil", sep=""))
+bio11 <- raster(paste(getwd(), "/wc2-5/bio11.bil", sep=""))
+bio18 <- raster(paste(getwd(), "/wc2-5/bio18.bil", sep=""))
+bio19 <- raster(paste(getwd(), "/wc2-5/bio19.bil", sep=""))
 plot(bio2) #mean dirunal range
 zoom(bio2) #click 2 locations on map
 
 # Creating a raster stack 
 # Let's collect several raster files from disk 
 # and read them as a single raster stack:
-file.remove(paste(getwd(), "/wc10/", "bio_10m_bil.zip", sep=""))
+file.remove(paste(getwd(), "/wc2-5/", "bio_2-5m_bil.zip", sep=""))
 # sort the file names using ?mixedsort
-files <- list.files(path=paste(getwd(), "/wc10/", sep=""), 
+files <- list.files(path=paste(getwd(), "/wc2-5/", sep=""), 
                     full.names=T, 
                     pattern=".bil") 
 # all files with .bil pattern 
@@ -117,8 +103,19 @@ coordExt <- c(-12,	5, 49, 61) # UK extent
 bio2crop <- crop(bio2, coordExt)
 plot(bio2crop)
 str(bio2crop)
+?str
 #notice this is a raster layer with crs "+proj=longlat +datum=WGS84 +no_defs"
 #reproject onto 27700 before laying the points on top
+
+bio19crop <- crop(bio19, coordExt)
+plot(bio19crop)
+str(bio19crop)
+
+bio19crop_sw <- projectRaster(bio19crop, crs=27700)
+plot(bio19crop_sw)
+str(bio19crop_sw) #note crs has changed and looks like the one for the coord file...
+#add the points
+plot(coord, add=T)
 
 # Changing projection
 # Use `projectRaster` function:
@@ -136,7 +133,35 @@ pts_data
 #and for all vars
 all_bioclimvars <- crop(bioclimVars, coordExt)
 all <- projectRaster(all_bioclimvars, crs=27700)
-all_pts_data <- raster::extract(all[[1:7]],coord,df=T)
+all_pts_data <- raster::extract(all[[1:19]],coord,df=T)
 all_pts_data
 
 #over to sarah for triage
+
+# Elevations, slope, aspect, etc
+# Download elevation data:
+dev.off()
+elevation <- getData('alt', country='GBR')
+
+#cropping data 
+elevationcrop <- crop(elevation, coordExt)
+plot(elevationcrop)
+str(elevationcrop)
+
+#projecting OSGB36 crs. 
+elevationcrop_sw <- projectRaster(elevationcrop, crs=27700)
+plot(elevationcrop_sw)
+plot(coord, add=T)
+
+
+# Some quick maps:
+slopAsp <- terrain(elevationcrop_sw, opt=c('slope', 'aspect'), unit='degrees')
+par(mfrow=c(1,2))
+plot(slopAsp)
+dev.off()
+slope <- terrain(elevationcrop_sw, opt='slope')
+aspect <- terrain(elevationcrop_sw, opt='aspect')
+hill <- hillShade(slope, aspect, 20, 280)
+plot(hill, col=grey(0:100/100), legend=FALSE, main='UK')
+plot(elevationcrop_sw, col=rainbow(25, alpha=0.35), add=TRUE)
+#now need to figure out how to include these in the raster stack
