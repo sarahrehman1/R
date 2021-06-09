@@ -1,5 +1,6 @@
 # load packages
 library(rgdal) # 'Geospatial' Data Abstraction Library ('GDAL')
+library(sdm)
 library (sp)
 library(raster) # for all things raster and more
 library(dismo) # species distribution modeling and much more
@@ -8,6 +9,10 @@ library(gtools) # various functions
 library(rasterVis) # raster visualization methods
 library(fields)# Curve / function fitting for spatial analyses
 library(sf)
+library(maptools)
+library(ecospat)
+library(colorRamps)
+install.packages(sdm)
 
 setwd("C:/Users/nisar/Desktop/R_wd/R")
 getwd()
@@ -51,6 +56,9 @@ bio19 <- raster(paste(getwd(), "/wc2-5/bio19.bil", sep=""))
 plot(bio2) #mean dirunal range
 zoom(bio2) #click 2 locations on map
 
+nlayers(bioclimVars)
+
+
 # Creating a raster stack 
 # Let's collect several raster files from disk 
 # and read them as a single raster stack:
@@ -67,13 +75,14 @@ list.ras
 # in order to stack rasters, they MUST ALL be identical in terms
 # of extent, resolution, etc.
 bioclimVars <- stack(list.ras)
-bioclimVars
+bioclimVars1 <- bioclimVars[[c(2, 3, 4, 10, 11, 18, 19)]] 
+plot(bioclimVars1)
 
 
 # Alternatively, provide coordinates for the limits of the region of interest:
 coordExt <- c(-12,	5, 49, 61) # UK extent 
 bio2crop <- crop(bio2, coordExt)
-plot(bio2crop)
+plot(bio19crop)
 points(coord)
 plot(coord)
 plot(britain)
@@ -125,17 +134,6 @@ str(bio2crop_sw) #note crs has changed and looks like the one for the coord file
 #add the points
 plot(coord, add=T)
 
-#bonus - extract data from bio2crop_sw for coord points
-pts_data <- raster::extract(clim[[1:4]],pts,df=T)
-pts_data <- raster::extract(bio2crop_sw,coord,df=T)
-pts_data
-
-#and for all vars
-all_bioclimvars <- crop(bioclimVars, coordExt)
-all <- projectRaster(all_bioclimvars, crs=27700)
-all_pts_data <- raster::extract(all[[1:19]],coord,df=T)
-all_pts_data
-
 #over to sarah for triage
 
 # Elevations, slope, aspect, etc
@@ -164,4 +162,52 @@ aspect <- terrain(elevationcrop_sw, opt='aspect')
 hill <- hillShade(slope, aspect, 20, 280)
 plot(hill, col=grey(0:100/100), legend=FALSE, main='UK')
 plot(elevationcrop_sw, col=rainbow(25, alpha=0.35), add=TRUE)
+plot(aspect)
+plot(slope)
 #now need to figure out how to include these in the raster stack
+
+save(elevationcrop_sw, file="elevation.data")
+load("elevationcrop_sw")
+
+##--------------------Plotting data------------------------------------
+plot(britain)
+plot(coord, add=TRUE) 
+points(coord, cex=0.5, pch=20, col='blue')
+
+##--------------extract environmental data----------------------------
+#bonus - extract data from bio2crop_sw for coord points
+pts_data <- raster::extract(clim[[1:4]],pts,df=T)
+pts_data <- raster::extract(bio2crop_sw,coord,df=T)
+pts_data
+
+#and for all vars
+all_bioclimvars <- crop(bioclimVars, coordExt)
+all <- projectRaster(all_bioclimvars, crs=27700)
+all_pts_data <- raster::extract(all[[1:19]],coord,df=T)
+all_pts_data
+
+
+##----------creating background data----------------------------------
+# setting a random seed to always create the same
+# random set of points for this example
+set.seed(0)
+# create 500 random background points 
+backgr <- randomPoints(all, 500)
+head(backgr)
+# and then extract env data at the background points
+absvals <- extract(all, backgr)
+head(absvals)
+# make a vector of 1's and 0's to match the
+# presence records and the background data
+# See ?rep
+?rep
+pb <- c(rep(1, nrow(all), rep(0, nrow(absvals))))
+row(pb)
+
+# now we bind everything together into a data.frame
+
+sdmdata <- data.frame(cbind(pb, rbind(all_bioclimvars, absvals)))
+# biome is a factor, so define it that way
+sdmdata[,'bio19crop'] = as.factor(sdmdata[,'bio19crop'])
+# and have a look at the data
+head(sdmdata)
