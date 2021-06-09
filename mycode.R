@@ -192,7 +192,9 @@ all_pts_data
 # random set of points for this example
 set.seed(0)
 # create 500 random background points 
-backgr <- randomPoints(all, 500)
+?randomPoints
+
+backgr <- randomPoints(all, ext=coordExt, tryf=50, 100)
 head(backgr)
 # and then extract env data at the background points
 absvals <- extract(all, backgr)
