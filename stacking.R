@@ -45,6 +45,12 @@ carbon27700 <- projectRaster(carbon, crs=27700)
 carbon27700c <- crop(carbon27700, ext_uk)
 plot(carbon27700c)
 
+# Copper --------------------------------------------------------
+
+copper = raster("C:/Users/nisar/Desktop/R_wd/R/210621/copper1.shp")
+plot(copper)
+
+
 # Resample ------------------------------------------------------
 
 elev_resamp <- resample(elev_crop_uk,all27700crop,resample="bilinear")
