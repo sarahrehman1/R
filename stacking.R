@@ -57,3 +57,8 @@ stack1 <- stack(all27700crop, elev_resamp, HII_resamp, carbon_resamp)
 plot(stack1)
 stack1
 nlayers(stack1)
+
+?layers_correlation
+layers_correlation(c("all27700crop", "elev_resamp", "HII_resamp", "carbon_resamp"))
+layers_correlation (as.matrix(stack1))
+layers_correlation(stack1)[1:22, 1:22]
