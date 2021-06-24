@@ -26,7 +26,6 @@ plot(elev_27700)
 plot(elev_crop_uk)
 
 # Human Influence Index -----------------------------------------
-
 HII = raster("C:/Users/nisar/Desktop/R_wd/R/hii-europe-geo-grid (1)/hii-europe-geo-grid/hii_europe_geo_grid/hii_europe/w001001x.adf")
 HIIc <- crop(HII, coordExt)
 plot(HIIc) #first crop
@@ -49,22 +48,44 @@ plot(carbon27700c)
 
 copper = raster("C:/Users/nisar/Desktop/R_wd/R/210621/copper1.shp")
 plot(copper)
-
+plot(cu)
 
 # Resample ------------------------------------------------------
 
 elev_resamp <- resample(elev_crop_uk,all27700crop,resample="bilinear")
 HII_resamp <- resample(HII27700c, all27700crop, resample="bilinear")
 carbon_resamp <- resample(carbon27700c, all27700crop, resample="bilinear")
-
+cu_resamp <-resample(cu, all27700crop, resample='bilinear')
 # Let's stack! :) ------------------------------------------------
 
-stack1 <- stack(all27700crop, elev_resamp, HII_resamp, carbon_resamp)
+stack1 <- stack(all27700crop, elev_resamp, HII_resamp, carbon_resamp, cu_resamp)
 plot(stack1)
 stack1
 nlayers(stack1)
 
-?layers_correlation
-layers_correlation(c("all27700crop", "elev_resamp", "HII_resamp", "carbon_resamp"))
-layers_correlation (as.matrix(stack1))
-layers_correlation(stack1)[1:22, 1:22]
+# look for collinearity ---------------------------------------------------
+#visually, easy to see which ones are problematic
+pairs(sdmdata[,2:5], cex=0.1)
+pairs(sdmdata[,6:9], cex=0.1)
+pairs(sdmdata[,10:13], cex=0.1)
+pairs(sdmdata[,14:17], cex=0.1)
+pairs(sdmdata[,18:21], cex=0.1)
+pairs(sdmdata[,21:23], cex=0.1)
+
+#found a helpful package!
+install.packages("virtualspecies")
+library(virtualspecies)
+
+removeCollinearity(stack1, plot = TRUE, select.variables = TRUE)
+keep <- removeCollinearity(stack1, plot = TRUE, select.variables = TRUE)
+#default cut off is pearson correlation coefficient 0.7
+#stick with 0.7 and choose most meaningful out of these? 
+
+#to implement the selection
+stack1_trimmed <- subset(stack1, keep, drop=TRUE) 
+removeCollinearity(stack1_trimmed, plot = TRUE, select.variables = TRUE)
+#no intercorrelation found now.
+
+#rename for convenience, wont have to change stack name in code
+stack1 <-stack1_trimmed
+
