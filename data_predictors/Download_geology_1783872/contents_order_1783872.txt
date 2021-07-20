@@ -1,0 +1,251 @@
+********************************************************************
+
+EDINA DIGIMAP:
+
+DIGITAL DATA SUPPLY
+
+********************************************************************
+
+
+This data is distributed under licence by:
+
+    EDINA
+    University of Edinburgh
+    https://edina.ac.uk
+
+    Tel:    0131 650 3302
+    Fax:    0131 650 3308
+    Email:  digimap@ed.ac.uk
+		
+
+
+---------------------------------------------------------
+
+CONTENTS
+
+You will have received the data files listed below, each product and area has
+its own folder. Note that each data folder contains a conditions.txt file
+which states the conditions for use of the data within. These conditions can
+vary between different data products.
+
+
+
+-------------------------------------------------------------------------------
+Folder:           bgs-250k_4100487
+Extent:           0.0, 0.0 - 700000.0, 1119369.4614416212
+Date Ordered:     22 June 2021 at 13:28:26
+Product:          DiGmapGB-250
+Version:          2008
+Format:           SHAPE
+Theme:            N/A
+Area:             52 tiles
+Tiles:
+ 
+Tile Name:        sd
+Extent:           300000.0, 400000.0 - 400000.0, 500000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sn
+Extent:           200000.0, 200000.0 - 300000.0, 300000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        hu
+Extent:           400000.0, 1100000.0 - 500000.0, 1200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sz
+Extent:           400000.0, 0.0 - 500000.0, 100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sp
+Extent:           400000.0, 200000.0 - 500000.0, 300000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        no
+Extent:           300000.0, 700000.0 - 400000.0, 800000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nh
+Extent:           200000.0, 800000.0 - 300000.0, 900000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nb
+Extent:           100000.0, 900000.0 - 200000.0, 1000000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sw
+Extent:           100000.0, 0.0 - 200000.0, 100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sc
+Extent:           200000.0, 400000.0 - 300000.0, 500000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        ss
+Extent:           200000.0, 100000.0 - 300000.0, 200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sy
+Extent:           300000.0, 0.0 - 400000.0, 100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sm
+Extent:           100000.0, 200000.0 - 200000.0, 300000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nf
+Extent:           0.0, 800000.0 - 100000.0, 900000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nl
+Extent:           0.0, 700000.0 - 100000.0, 800000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nx
+Extent:           200000.0, 500000.0 - 300000.0, 600000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nr
+Extent:           100000.0, 600000.0 - 200000.0, 700000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nu
+Extent:           400000.0, 600000.0 - 500000.0, 700000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        na
+Extent:           0.0, 900000.0 - 100000.0, 1000000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nk
+Extent:           400000.0, 800000.0 - 500000.0, 900000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sj
+Extent:           300000.0, 300000.0 - 400000.0, 400000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        tm
+Extent:           600000.0, 200000.0 - 700000.0, 300000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        tg
+Extent:           600000.0, 300000.0 - 700000.0, 400000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        st
+Extent:           300000.0, 100000.0 - 400000.0, 200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        tq
+Extent:           500000.0, 100000.0 - 600000.0, 200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sv
+Extent:           0.0, 0.0 - 100000.0, 100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sh
+Extent:           200000.0, 300000.0 - 300000.0, 400000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        hy
+Extent:           300000.0, 1000000.0 - 400000.0, 1100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nc
+Extent:           200000.0, 900000.0 - 300000.0, 1000000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nw
+Extent:           100000.0, 500000.0 - 200000.0, 600000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nz
+Extent:           400000.0, 500000.0 - 500000.0, 600000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nd
+Extent:           300000.0, 900000.0 - 400000.0, 1000000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nn
+Extent:           200000.0, 700000.0 - 300000.0, 800000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        so
+Extent:           300000.0, 200000.0 - 400000.0, 300000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        ht
+Extent:           300000.0, 1100000.0 - 400000.0, 1200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        se
+Extent:           400000.0, 400000.0 - 500000.0, 500000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        tv
+Extent:           500000.0, 0.0 - 600000.0, 100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        hz
+Extent:           400000.0, 1000000.0 - 500000.0, 1100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        tf
+Extent:           500000.0, 300000.0 - 600000.0, 400000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        tl
+Extent:           500000.0, 200000.0 - 600000.0, 300000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sk
+Extent:           400000.0, 300000.0 - 500000.0, 400000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        su
+Extent:           400000.0, 100000.0 - 500000.0, 200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        tr
+Extent:           600000.0, 100000.0 - 700000.0, 200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nt
+Extent:           300000.0, 600000.0 - 400000.0, 700000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nj
+Extent:           300000.0, 800000.0 - 400000.0, 900000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        nm
+Extent:           100000.0, 700000.0 - 200000.0, 800000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        ng
+Extent:           100000.0, 800000.0 - 200000.0, 900000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        ns
+Extent:           200000.0, 600000.0 - 300000.0, 700000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        ny
+Extent:           300000.0, 500000.0 - 400000.0, 600000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sx
+Extent:           200000.0, 0.0 - 300000.0, 100000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        sr
+Extent:           100000.0, 100000.0 - 200000.0, 200000.0
+Last Amended:     8 November 2005
+  
+Tile Name:        ta
+Extent:           500000.0, 400000.0 - 600000.0, 500000.0
+Last Amended:     8 November 2005
+     
