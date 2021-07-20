@@ -14,7 +14,7 @@ library(colorRamps)
 library(XML)
 library(sdmpredictors)
 library(ggplot2)
-install.packages(sdm)
+#install.packages(sdm)
 library(sdm)
 
 setwd("C:/Users/nisar/Desktop/R_wd/R")
@@ -116,9 +116,13 @@ carbon27700c <- crop(carbon27700, ext_uk)
 plot(carbon27700c)
 
 # Resample ------------------------------------------------------
+r <- raster(nrow=3, ncol=3)
+r[] <- 1:ncell(r)
+s <- raster(nrow=10, ncol=10)
+s <- resample(r, s, method='bilinear')
 
-HII_resamp <- resample(HII27700c, all27700crop, resample="bilinear")
-carbon_resamp <- resample(carbon27700c, all27700crop, resample="bilinear")
+HII_resamp <- resample(HII27700c, all27700crop, method="bilinear")
+carbon_resamp <- resample(carbon27700c, all27700crop, method="bilinear")
 
 # Let's stack! :) ------------------------------------------------
 
@@ -401,7 +405,9 @@ mx <- maxent(stack1,
              path=filePath,
              args=c("betamultiplier=0.25","responsecurves"))
 
-mx # let's try projecting to future climate. For simplicity, we will create
+
+mx 
+# let's try projecting to future climate. For simplicity, we will create
 # some fake future climate layers
 future <- predictors
 future$bio5 <- future$bio5+40 # increase max temp by 4C (recall temp is 10x)

@@ -34,7 +34,7 @@ plot(probMap > tr, main='presence/absence')
 plot(!is.na(r1), add=TRUE, border='dark grey')
 points(pres_train, pch='+')
 points(pres_test, pch='x', col="red")
-
+library(ecospat)
 # let's check model quality using the Boyce Index
 ecospat.boyce(1-pm, # prediction
               pres_train) # not good...

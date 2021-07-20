@@ -52,10 +52,10 @@ plot(cu)
 
 # Resample ------------------------------------------------------
 
-elev_resamp <- resample(elev_crop_uk,all27700crop,resample="bilinear")
-HII_resamp <- resample(HII27700c, all27700crop, resample="bilinear")
-carbon_resamp <- resample(carbon27700c, all27700crop, resample="bilinear")
-cu_resamp <-resample(cu, all27700crop, resample='bilinear')
+elev_resamp <- resample(elev_crop_uk,all27700crop,method="bilinear")
+HII_resamp <- resample(HII27700c, all27700crop, method="bilinear")
+carbon_resamp <- resample(carbon27700c, all27700crop, method="bilinear")
+cu_resamp <-resample(cu, all27700crop, method='bilinear')
 # Let's stack! :) ------------------------------------------------
 
 stack1 <- stack(all27700crop, elev_resamp, HII_resamp, carbon_resamp, cu_resamp)
@@ -73,7 +73,7 @@ pairs(sdmdata[,18:21], cex=0.1)
 pairs(sdmdata[,21:23], cex=0.1)
 
 #found a helpful package!
-install.packages("virtualspecies")
+#install.packages("virtualspecies")
 library(virtualspecies)
 
 removeCollinearity(stack1, plot = TRUE, select.variables = TRUE)
