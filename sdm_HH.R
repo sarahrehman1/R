@@ -17,7 +17,11 @@ library(colorRamps)
 library(XML)
 library(sdmpredictors)
 library(ggplot2)
+<<<<<<< HEAD
 #install.packages(sdm)
+=======
+install.packages(sdm)
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 library(sdm)
 
 getwd()
@@ -49,8 +53,12 @@ bioclimVars <- getData(name="worldclim", #other options available
 #put into data_predictos folder, called wc2-5
 
 #if you already have it, use stack all the files in the folder
+<<<<<<< HEAD
 getwd()
 rastlist <- list.files(path = paste(getwd(),"/data_predictors/wc2-5/", sep = ""), all.files=TRUE, pattern='.bil', full.names=TRUE)
+=======
+rastlist <- list.files(path = "C:/Users/mbzhh/Documents/GitHub/R/data_predictors/wc2-5/", all.files=TRUE, pattern='.bil', full.names=TRUE)
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 rastlist
 bioclimVars <- stack(rastlist)
 class(bioclimVars) # raster stack - same projection, spatial extent,
@@ -70,6 +78,7 @@ carbon = raster(paste(getwd(), "/data_predictors/carbon/totareaco2181.shp", sep=
 copper = raster(paste(getwd(), "/data_predictors/copper/wd001001.adf", sep=""))
 #moraines = raster(paste(getwd(), "/data_predictors/Moraines__BRITICE_glacial_landforms_-shp/Moraines__BRITICE_glacial_landforms_.shp", sep=""))
 
+<<<<<<< HEAD
 #whats the problem with moraines? the format sarah imported them in most likely...
 copper <- raster(choose.files()) #so this does not work for any of the digimaps spatialpolygonsdataframes...
 #lets at least bring in the shapefile
@@ -140,6 +149,8 @@ ggplot(data=shapedf, aes(x=long, y=lat, group=group))+
   coord_quickmap()
 
 ################################anyway
+=======
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 # 3A: more detailed manipulation - good for learning ----------------------
 #extra - could also load each single raster layer - below is a different way of achieving above
 filePath <- paste(getwd(), "/wc2-5/bio19.bil", sep="")
@@ -174,13 +185,17 @@ bioclimVars1
 
 
 # 4. Cropping and stacking environmental variables ----------------------
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 #implement rough extent to make files smaller
 
 #extents used
 coordExt <- c(-12, 5, 49, 61) # UK extent
 ext_uk <- c(-86644,	685295, -16137, 1247364) #picked up from the elev_27700 file 
 
+<<<<<<< HEAD
 
 #note on the error that is thrown when converting the crs
 ##HH there appears to be some issues with the datum, it is discarded - and throws a warning. 
@@ -199,6 +214,8 @@ discarded_datum # this is the outcome when trying to assign EPSG:27700
 str(coord) #notice the crs format here (str() just shows the object attributes)
 ############################ anyway...
 
+=======
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 #first project to UK map system
 bc_uk <- crop(bioclimVars, coordExt)
 bc_uk <- projectRaster(bc_uk, crs=27700)
@@ -217,10 +234,17 @@ plot(elevation_uk)
 plot(coord, add=T)
 
 # Some more data on the elevation layers...
+<<<<<<< HEAD
 slope <- terrain(elevation_uk, opt="slope", unit='degrees')
 slope_uk <- projectRaster(slope, crs=27700) #setting crs
 slope_uk <- crop(slope_uk, ext_uk)
 aspect <- terrain(elevation_uk, opt="aspect", unit="degrees")
+=======
+slope <- terrain(elev_uk, opt="slope", unit='degrees')
+slope_uk <- projectRaster(slope, crs=27700) #setting crs
+slope_uk <- crop(slope_uk, ext_uk)
+aspect <- terrain(elev_uk, opt="aspect", unit="degrees")
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 aspect_uk <- projectRaster(aspect, crs=27700) #setting crs
 aspect_uk <- crop(aspect_uk, ext_uk)
 hill <- hillShade(slope, aspect, 20, 280)
@@ -228,7 +252,11 @@ hill_uk <- projectRaster(hill, crs = 27700)
 hill_uk <- crop(hill_uk, ext_uk)
 
 plot(hill, col=grey(0:100/100), legend=FALSE, main='UK')
+<<<<<<< HEAD
 plot(elevation_uk, col=rainbow(25, alpha=0.35), add=TRUE)
+=======
+plot(elev_uk, col=rainbow(25, alpha=0.35), add=TRUE)
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 
 #resample to same resolution as the bioclim data
 HII_uk <- resample(HII_uk, bc_uk, method="bilinear")
@@ -237,11 +265,16 @@ elev_uk <- resample(elevation_uk, bc_uk, method="bilinear")
 hill_uk <- resample(hill_uk, bc_uk, method="bilinear")
 slope_uk <- resample(slope_uk, bc_uk, method="bilinear")
 aspect_uk <- resample(aspect_uk, bc_uk, method="bilinear")
+<<<<<<< HEAD
 mora_uk <- resample(mora, bc_uk, method="bilinear")
+=======
+
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 #stacking the rasters
 stack1 <- stack(bc_uk, elev_uk, HII_uk, carbon_uk, hill_uk, aspect_uk, slope_uk)
 plot(stack1)
 nlayers(stack1)
+<<<<<<< HEAD
 #including mora_uk causes a fail here...
 # 5. remove highly correlated variables in the data -----------------------
 
@@ -268,6 +301,11 @@ pairs(sdm_data[,10:13], cex=0.1)
 pairs(sdm_data[,14:17], cex=0.1)
 pairs(sdm_data[,18:21], cex=0.1)
 pairs(sdm_data[,21:23], cex=0.1)
+=======
+
+
+# 5. Extract predictor data for points, training and background sets ----------------------------------
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 
 #bonus - extract data from bio2crop_sw for coord points
 pts_data <- raster::extract(stack1,coord,df=T)
@@ -331,7 +369,11 @@ group_coord <- kfold(coord, k=5) # 5 groups = 80/20 split for training vs testin
 #for plotting below, these should only have 
 # let's set an extent to crop the env data to make predictions faster
 #ext <- extent(-90, -32, -33, 23)
+<<<<<<< HEAD
 group_coord
+=======
+
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 #And for the random points
 #
 #coordgroup_backgr <- kfold(backgr, 5)
@@ -345,7 +387,11 @@ set.seed(1)
 #we already did this generation of random points, using backgr
 
 colnames(backgrstack) = c('lon', 'lat') # not sure why, for convenience?
+<<<<<<< HEAD
 backgrstack
+=======
+
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 r1 <- raster(stack1, 1)
 plot(!is.na(r1), col=c('white', 'light grey'), legend=FALSE)
 #plot(ext, add=TRUE, col='black', lwd=2) we already set out extent
@@ -356,13 +402,21 @@ points(pres_test, pch='+', col='blue')
 
 
 
+<<<<<<< HEAD
 # 7. Mahalanobis Distance -------------------------------------------------
+=======
+# 6. Mahalanobis Distance -------------------------------------------------
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 
 mm <- mahal(stack1, # raster stack
             pres_train) #presence-only data
 
 # evaluate the model using test data (presences + background)
+<<<<<<< HEAD
 #?evaluate
+=======
+?evaluate
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 e <- evaluate(pres_test, # presences
               backg_test, # background / absences
               mm, # model
@@ -393,7 +447,10 @@ points(pres_train, pch='+')
 points(pres_test, pch='x', col="red")
 
 # let's check model quality using the Boyce Index
+<<<<<<< HEAD
 library(ecospat)
+=======
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 ecospat.boyce(1-pm, # prediction
               pres_train) # not good...
 
@@ -401,10 +458,17 @@ ecospat.boyce(1-pm, # prediction
 cheat <- xyFromCell(probMap, which(probMap[]>0.5))
 ecospat.boyce(probMap, cheat)
 
+<<<<<<< HEAD
 
 # 7B. create bias layer ---------------------------------------------------
 
 # 8. fit maxent -----------------------------------------------------------
+=======
+# 6A. select non correlated variables -------------------------------------
+
+
+# 7. fit maxent -----------------------------------------------------------
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 
 ?maxent #needs predictor variables in rasterstack. needs occurrence
 # data, either matrix or spatialpoints object (2 colums x y)
@@ -497,7 +561,11 @@ mx <- maxent(stack1,
 
 mx 
 
+<<<<<<< HEAD
 # 8A. test diff maxent models ----------------------------------------------
+=======
+# 8. test diff maxent models ----------------------------------------------
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
 
 
 #see script fitzpatrick_test_maxent_models.R
@@ -547,6 +615,7 @@ plot(novelLimit)
 
 
 
+<<<<<<< HEAD
 
 #from albert
 Similar as you run the maxent.bat you can rung project.bat to project to your new environment  (future rasters). 
@@ -662,3 +731,502 @@ for(i in 1:length(projNames)){
   writeRaster(future[[i]], projNames[i], overwrite=T)
 }
 
+=======
+################################################################################
+# script to model ant distributions in New England using maxent
+# 
+#
+# Results described in:
+# Fitzpatrick et al. (2013) MAXENT vs. MAXLIKE: Empirical Comparisons with 
+# Ant Species Distributions. Ecosphere
+#
+# DESCRIPTION & NOTES
+# The code needs the following to run:
+# (1) climate & elevation rasters (provided as neClim)
+# (2) ant distribution data (provided as antData_use4R_snappedToClim.csv). Note
+# that as the file name suggests these data have been snapped to cell centroids.
+#
+################################################################################
+
+# Our goal here is to fit and compare several different maxent models. 
+# All will be fit to the same data, but we will see how changing the complexity
+# of the features and correcting for sampling bias (or not) alter outcomes. We
+# will compare them in terms of predictions and using model selection 
+# approaches (AIC).
+
+################################################################################
+# CHUNK 1: Read in & prep data
+################################################################################
+library(dismo)
+library(raster)
+library(sp)
+library(sm)
+library(colorRamps)
+library(ENMeval)
+
+setwd("/Users/mfitzpatrick/code/PRStats_SDMs/data") # setwd to where data files are stored
+
+# ant ocurrence data for New England, USA
+# FOr about 120 species of ants
+antsGeoXY <- read.csv("antData.csv")
+
+# read in climate & elev data
+neClim <- stack("neClim.grd") # three variables
+antsSp <- antsGeoXY # make a new object for use later
+# convert to sp object
+coordinates(antsSp) <- c("x", "y")
+# assign projection
+projection(antsSp) <- projection(neClim)
+
+# let's look at the data
+plot(neClim$bio_1, col=rgb.tables(1000))
+points(antsSp, pch=20, cex=0.5, col=rgb(0,0,0,0.25))
+
+# make a mask raster to use below
+mask <- stack1[[1]]>-1000
+plot(mask)
+
+# Sampling bias ----------------------------------------------------------------
+# To deal with spatial sampling bias, we will create
+# a raster that reflects the sampling density of ants
+# in the study region using kernel density estimation (KDE)
+
+# use the x-y coords to get the cell numbers
+bias <- cellFromXY(mask, coord) # cells with records
+cells <- unique(sort(bias))
+cells
+# xy-locations of all samples
+kernelXY <- xyFromCell(mask, cells)
+points(kernelXY, pch=".")
+samps <- as.numeric(table(bias)) 
+# number of samples in each grid cell
+head(samps)
+samps[1:10]
+max(samps) #one grid cell has 255 records in it
+
+# code to make KDE (kernel density estimate) raster
+# Our goal is to extrapolate sampling density across the study region
+# and to make a raster that matches the env predictors exactly. To do that,
+# we need to set some parameters to produce a grid that is close in size
+# and resolution to the env rasters. The 'sm.density' function will perform
+# 2D density estimation.
+KDEsur <- sm.density(kernelXY, 
+                     weights=samps, 
+                     display="none", # do not plot 
+                     ngrid=96, # number of grid cells along each dimension,
+                     # have a look at the clim data = 812 columns
+                     ylim=c(-16137, 1247364), # approximate latitude range 
+                     xlim=c(-86644,	685295), # approximate longitude range
+                     nbins=0) # see help, can ignore
+
+# let's look at the structure
+str(KDEsur)
+head(KDEsur$eval.points) # point locations where denisty was estimated
+KDEsur$estimate[1:5, 1:5] # the density estimates
+
+# now we need to turn this output into a raster
+# expand grid will make all possible combinations of two vectors
+# in this case we want to get all possible combinates of the x-y coordinates
+# which will produce a full grid
+pointGrid <- expand.grid(x=KDEsur$eval.points[,1], y=KDEsur$eval.points[,2])
+KDErast <- SpatialPoints(pointGrid) # convert to sp object
+# And now a step closer to a grid
+KDErast <- SpatialPixelsDataFrame(KDErast, # points
+                                  data.frame(kde = array(KDEsur$estimate, # data
+                                                         length(KDEsur$estimate))))
+# convert to a raster and plot
+KDErast <- raster(KDErast)
+plot(KDErast)
+
+# now crop, etc so that it matches the climate data
+KDErast <- resample(KDErast, mask)
+KDErast <- KDErast*mask
+plot(KDErast)
+stack(neClim, KDErast) # no errors!
+
+# convert to points for use as background locations 
+KDEpts <- rasterToPoints(KDErast)
+bg <- randomPoints(KDErast, 500, prob=T) # alternate method
+################################################################################
+
+
+################################################################################
+# CHUNK 2: Run models
+################################################################################
+# extract data for ant spp
+antSpp <- c("camher", "camnov", "forint", "monema", "phepil", "preimp")
+
+a <- 6 # let's work with only preimp in this example
+# loop to run models for each species
+#for(a in 1:length(antSpp)){
+antGeoXY <- antsGeoXY[antsGeoXY$spcode==antSpp[a],-1]
+dim(antGeoXY)
+plot(neClim[[1]])
+points(antGeoXY$x, antGeoXY$y, pch=20)
+#my edit for convenience
+
+antGeoXY <- coord
+########## make sets of training/test (t/t) data
+ttSplit = 0.25 # ttSplit = test/train split percentage
+# function to partition data into t/t
+fold <- function(ttSplit){ 
+  k = round(1/ttSplit, 0)
+  fold <- kfold(antGeoXY, k=k)
+}
+
+# make sets of t/t data
+sets = 5 # number of t/t sets to make. We used 50 in the paper.
+folds <- replicate(sets, fold(ttSplit)) # replicate five different random folds
+head(folds)
+
+# now loop through to build lists of t/t data
+antTrain <- list()
+antTest <- list()
+for(h in 1:sets){
+  antTrain[[h]] <- antGeoXY[folds[,h]!=1,]
+  antTest[[h]] <- antGeoXY[folds[,h]==1,]
+}
+str(antTrain)
+#convenience renaming
+neClim <-stack1
+plot(neClim[[1]])
+points(antTrain[[1]], pch=20)
+points(antTrain[[2]], pch=20, col="red")
+
+
+# now we will work through four different maxent models:
+# (1) linear features only
+# (2) Default features (set by number of occurrence records)
+# (3) linear features only, bias corrected background
+# (4) default features, bias corrected background
+
+
+
+# MODEL 1 -----------------------------------------------------------------
+#### MAXENT - LINEAR FEATURES
+antmaxMods_LF <- list()
+# loop through each fold (5 total), fit a model, and place fitted model
+# in a list
+for(f in 1:sets){
+  print(f)
+  #### MAXENT - LINEAR FEATURES
+  antmaxMods_LF[[f]] <- maxent(neClim, antTrain[[f]], 
+                               args=c(c("-h", # turn off hinge features
+                                        "-q", # turn off quadratic features
+                                        "-p", # turn off product features
+                                        "-P", # return response curves
+                                        "nothreshold"), # turn off threshold
+                                      c("-m", 10000))) # max iterations = 10K
+}
+# predict to geography
+antmaxStack_LF <- predict(antmaxMods_LF[[1]], neClim) #cloglog
+antmaxStackRAW_LF <- predict(antmaxMods_LF[[1]], neClim, args='outputformat=raw')
+
+# loop through the rest of the models and predict
+for(j in 2:sets){
+  print(j)
+  mod_LF <- predict(antmaxMods_LF[[j]], neClim)
+  modRAW_LF <- predict(antmaxMods_LF[[j]], neClim, args='outputformat=raw')
+  antmaxStack_LF <- stack(antmaxStack_LF, mod_LF)
+  antmaxStackRAW_LF <- stack(antmaxStackRAW_LF, modRAW_LF)
+}
+
+plot(antmaxStack_LF, col=rgb.tables(1000))
+plot(mean(antmaxStack_LF), col=rgb.tables(1000)) # mean of the five models
+plot(calc(antmaxStack_LF, sd), col=rgb.tables(1000)) #std dev of the five models
+
+# MODEL 2 -----------------------------------------------------------------
+#### MAXENT - DEFAULT FEATURES
+# Same as above, but now using default features
+antmaxMods_allF <- list()
+for(f in 1:sets){
+  print(f)
+  antmaxMods_allF[[f]] <- maxent(neClim, antTrain[[f]], 
+                                 args=c("-P",c("-m", 10000)))
+}
+# Predict to geography and stack
+antmaxStack_allF <- predict(antmaxMods_allF[[1]], neClim)
+antmaxStackRAW_allF <- predict(antmaxMods_allF[[1]], neClim, args='outputformat=raw')
+for(j in 2:sets){
+  print(j)
+  mod_allF <- predict(antmaxMods_allF[[j]], neClim)
+  modRAW_allF <- predict(antmaxMods_allF[[j]], neClim, args='outputformat=raw')
+  antmaxStack_allF <- stack(antmaxStack_allF, mod_allF)
+  antmaxStackRAW_allF <- stack(antmaxStackRAW_allF, modRAW_allF)
+}
+
+# MODEL 3 -----------------------------------------------------------------
+#### MAXENT - LINEAR FEATURES + SAMPLING BIAS
+# Account for smapling bias, linear features only
+# 10,000 locations selected using probabilistic target-group sampling
+# from KDE bias surface created above
+
+# example of selecting background points
+# to reflect bias in the presence data
+# BG points are more likely to be selected where
+# presence-only sampling is most dense
+bg <- KDEpts[sample(seq(1:nrow(KDEpts)), 
+                    size=1000, 
+                    replace=T, 
+                    prob=KDEpts[,"layer"]),1:2]
+plot(neClim[[1]])
+points(bg, pch=20)
+
+antmaxMods_LF_bias <- list()
+for(f in 1:sets){
+  print(f)
+  antmaxMods_LF_bias[[f]] <- maxent(neClim, 
+                                    antTrain[[f]],
+                                    # background points selected from KDEpts
+                                    a=KDEpts[sample(seq(1:nrow(KDEpts)), 
+                                                    size=10000, 
+                                                    replace=T, 
+                                                    prob=KDEpts[,"layer"]),1:2], 
+                                    args=c(c("-h", "-q", "-p", "-P", "nothreshold"),c("-m", 10000)))
+}
+
+# Predict to geography and stack 
+antmaxStack_LF_bias <- predict(antmaxMods_LF_bias[[1]], neClim)
+antmaxStackRAW_LF_bias <- predict(antmaxMods_LF_bias[[1]], neClim, args='outputformat=raw')
+
+for(j in 2:sets){
+  print(j)
+  mod_LF_bias <- predict(antmaxMods_LF_bias[[j]], neClim)
+  modRAW_LF_bias <- predict(antmaxMods_LF_bias[[j]], neClim, args='outputformat=raw')
+  antmaxStack_LF_bias <- stack(antmaxStack_LF_bias, mod_LF_bias)
+  antmaxStackRAW_LF_bias <- stack(antmaxStackRAW_LF_bias, modRAW_LF_bias)
+}
+
+#from model1
+plot(antmaxStack_LF, col=rgb.tables(1000))
+plot(mean(antmaxStack_LF), col=rgb.tables(1000)) # mean of the five models
+plot(calc(antmaxStack_LF, sd), col=rgb.tables(1000)) #std dev of the five models
+#from model3 (here)
+plot(antmaxStack_LF_bias, col=rgb.tables(1000))
+plot(mean(antmaxStack_LF_bias), col=rgb.tables(1000)) # mean of the five models
+plot(calc(antmaxStack_LF_bias, sd), col=rgb.tables(1000)) #std dev of the five models
+
+
+# MODEL 4 -----------------------------------------------------------------
+#### MAXENT - DEFAULT FEATURES - BIAS CORRECTED BACKGROUND
+antmaxMods_allF_bias <- list()
+for(f in 1:sets){
+  print(f)
+  antmaxMods_allF_bias[[f]] <- maxent(neClim, 
+                                      antTrain[[f]], 
+                                      a=KDEpts[sample(seq(1:nrow(KDEpts)), 
+                                                      size=10000, 
+                                                      replace=T, 
+                                                      prob=KDEpts[,"layer"]),1:2], 
+                                      args=c("-P",c("-m", 10000)))
+}
+
+# Predict to geography and stack
+antmaxStack_allF_bias <- predict(antmaxMods_allF_bias[[1]], neClim)
+antmaxStackRAW_allF_bias <- predict(antmaxMods_allF_bias[[1]], neClim, 
+                                    args='outputformat=raw')
+for(j in 2:sets){
+  print(j)
+  mod_allF_bias <- predict(antmaxMods_allF_bias[[j]], neClim)
+  modRAW_allF_bias <- predict(antmaxMods_allF_bias[[j]], neClim, 
+                              args='outputformat=raw')
+  antmaxStack_allF_bias <- stack(antmaxStack_allF_bias, mod_allF_bias)
+  antmaxStackRAW_allF_bias <- stack(antmaxStackRAW_allF_bias, modRAW_allF_bias)
+}
+save.image(file=paste(antSpp[a], ".RData", sep=""))
+#}
+#
+##from model2
+plot(antmaxStack_allF, col=rgb.tables(1000))
+plot(mean(antmaxStack_allF), col=rgb.tables(1000)) # mean of the five models
+plot(calc(antmaxStack_allF, sd), col=rgb.tables(1000)) #std dev of the five models
+#from model4 (here)
+plot(antmaxStack_allF_bias, col=rgb.tables(1000))
+plot(mean(antmaxStack_allF_bias), col=rgb.tables(1000)) # mean of the five models
+plot(calc(antmaxStack_allF_bias, sd), col=rgb.tables(1000)) #std dev of the five models
+################################################################################
+
+
+# Next, we will calculate mean and standard deviation (sd) rasters for all the 
+# models fitted above and save the prediction rasters to disk
+################################################################################
+# CHUNK 3: Write mean and sd rasters of predictions for evaluation, mapping, etc
+################################################################################
+
+#antFile <- "/Users/mfitzpatrick/code/PRStats_SDMs/data/preimp.RData"
+#load(antFile)
+
+fileName <- "preimp"
+
+#maxent - LINEAR FEATURES
+writeRaster(sum(antmaxStack_LF)/dim(antmaxStack_LF)[3], 
+            paste0(fileName, "_maxent_prob_LF.tiff"), 
+            type="GTiff", overwrite=T)
+writeRaster(calc(antmaxStack_LF, sd), 
+            paste0(fileName, "_maxent_sd_LF.tiff",sep=""), 
+            type="GTiff", overwrite=T)  
+
+#maxent - ALL FEATURES
+writeRaster(sum(antmaxStack_allF)/dim(antmaxStack_allF)[3], 
+            paste0(fileName, "_maxent_prob_allF.tiff"), 
+            type="GTiff", overwrite=T)
+writeRaster(calc(antmaxStack_allF, sd), 
+            paste0(fileName, "_maxent_sd_allF.tiff",sep=""), 
+            type="GTiff", overwrite=T)
+
+#maxent - LINEAR FEATURES - ***bias corrected***
+writeRaster(sum(antmaxStack_LF_bias)/dim(antmaxStack_LF_bias)[3], 
+            paste0(fileName,"_maxent_prob_LF_biasCorrected.tiff"), 
+            type="GTiff", overwrite=T)
+writeRaster(calc(antmaxStack_LF_bias, sd), 
+            paste0(fileName,"_maxent_sd_LF_biasCorrected.tiff"), 
+            type="GTiff", overwrite=T)  
+
+#maxent - ALL FEATURES - ***bias corrected***
+writeRaster(sum(antmaxStack_allF_bias)/dim(antmaxStack_allF_bias)[3], 
+            paste0(fileName, "_maxent_prob_allF_biasCorrected.tiff"), 
+            type="GTiff", overwrite=T)
+writeRaster(calc(antmaxStack_allF_bias, sd), 
+            paste0(fileName,"_maxent_sd_allF_biasCorrected.tiff"), 
+            type="GTiff", 
+            overwrite=T)
+################################################################################
+
+
+################################################################################
+# CHUNK 4: Calculate AICc for maxent models
+################################################################################
+library(PresenceAbsence)
+library(raster)
+library(dismo)
+library(zoo)
+library(ENMeval)
+
+#antFile <- "/Users/mfitzpatrick/code/PRStats_SDMs/data/preimp.RData"
+#load(antFile)
+
+aicc.LF <- aicc.allF <- aicc.LF_bias <- aicc.allF_bias <- NULL
+
+for(ii in 1:5){
+  aicc.LF[ii] <- calc.aicc(nparam = get.params(antmaxMods_LF[[ii]]), 
+                           occ=antGeoXY, 
+                           antmaxStack_LF[[ii]])$AICc
+  
+  aicc.allF[ii] <- calc.aicc(nparam = get.params(antmaxMods_allF[[ii]]), 
+                             occ=antGeoXY, 
+                             antmaxStack_allF[[ii]])$AICc
+  
+  aicc.LF_bias[ii] <- calc.aicc(nparam = get.params(antmaxMods_LF_bias[[ii]]), 
+                                occ=antGeoXY, 
+                                antmaxStack_LF_bias[[ii]])$AICc
+  
+  aicc.allF_bias[ii] <- calc.aicc(nparam = get.params(antmaxMods_allF_bias[[ii]]), 
+                                  occ=antGeoXY, 
+                                  antmaxStack_allF_bias[[ii]])$AICc
+}    
+
+mean(aicc.LF)
+mean(aicc.allF)
+mean(aicc.LF_bias)
+mean(aicc.allF_bias)
+################################################################################
+
+
+################################################################################
+# CHUNK 5: Evaluate models
+################################################################################
+library(PresenceAbsence)
+library(raster)
+library(dismo)
+library(zoo)
+library(ecospat)
+
+
+######### maxent LF ############# 
+Boyce <- AUCmod <- meanProb <- meanBG <- NULL
+
+# predicted probability at random background points
+probBG <- extract(antmaxStack_LF, randomPoints(neClim, 10000))
+
+for(ii in 1:dim(antmaxStack_LF)[3]){    
+  probTest <- as.numeric(na.omit(extract(antmaxStack_LF[[ii]], antTest[[ii]])))
+  # predicted probability at test points
+  Boyce[[ii]] <- ecospat.boyce(antmaxStack_LF[[ii]], antTest[[ii]],
+                               PEplot=FALSE)$Spearman.cor
+  evalDismo <- evaluate(p=probTest, a=probBG[,ii])
+  AUCmod[[ii]] <- evalDismo@auc
+  meanProb[[ii]] <- mean(probTest)
+  meanBG[[ii]] <- mean(probBG[,ii])
+}
+
+maxentEval_LF <- rbind(Boyce, AUCmod, meanProb, meanBG)
+
+######### maxent allF #############  
+Boyce <- AUCmod <- meanProb <- meanBG <- NULL
+
+# predicted probability at random background points
+probBG <- extract(antmaxStack_allF, randomPoints(neClim, 10000))
+
+for(ii in 1:dim(antmaxStack_allF)[3]){    
+  
+  probTest <- as.numeric(na.omit(extract(antmaxStack_allF[[ii]], antTest[[ii]])))
+  
+  # predicted probability at test points
+  Boyce[[ii]] <- ecospat.boyce(antmaxStack_allF[[ii]], antTest[[ii]],
+                               PEplot=FALSE)$Spearman.cor
+  evalDismo <- evaluate(p=probTest, a=probBG[,ii])
+  AUCmod[[ii]] <- evalDismo@auc
+  meanProb[[ii]] <- mean(probTest)
+  meanBG[[ii]] <- mean(probBG[,ii])
+}
+
+maxentEval_allF <- rbind(Boyce, AUCmod, meanProb, meanBG)
+
+######### maxent LF bias corrected ############# 
+Boyce <- AUCmod <- meanProb <- meanBG <- NULL
+
+# predicted probability at random background points
+probBG <- extract(antmaxStack_LF_bias, randomPoints(neClim, 10000))
+
+for(ii in 1:dim(antmaxStack_LF_bias)[3]){    
+  
+  probTest <- as.numeric(na.omit(extract(antmaxStack_LF_bias[[ii]], antTest[[ii]])))
+  
+  # predicted probability at test points
+  Boyce[[ii]] <- ecospat.boyce(antmaxStack_LF_bias[[ii]], antTest[[ii]],
+                               PEplot=FALSE)$Spearman.cor
+  evalDismo <- evaluate(p=probTest, a=probBG[,ii])
+  AUCmod[[ii]] <- evalDismo@auc
+  meanProb[[ii]] <- mean(probTest)
+  meanBG[[ii]] <- mean(probBG[,ii])
+}
+
+maxentEval_LF_bias <- rbind(Boyce, AUCmod, meanProb, meanBG)
+
+######### maxent allF bias corrected #############  
+Boyce <- AUCmod <- meanProb <- meanBG <- NULL
+
+# predicted probability at random background points
+probBG <- extract(antmaxStack_allF_bias, randomPoints(neClim, 10000))
+
+for(ii in 1:dim(antmaxStack_allF_bias)[3]){    
+  
+  probTest <- as.numeric(na.omit(extract(antmaxStack_allF_bias[[ii]], antTest[[ii]])))
+  
+  # predicted probability at test points
+  Boyce[[ii]] <- ecospat.boyce(antmaxStack_allF_bias[[ii]], antTest[[ii]],
+                               PEplot=FALSE)$Spearman.cor
+  evalDismo <- evaluate(p=probTest, a=probBG[,ii])
+  AUCmod[[ii]] <- evalDismo@auc
+  meanProb[[ii]] <- mean(probTest)
+  meanBG[[ii]] <- mean(probBG[,ii])
+}
+
+maxentEval_allF_bias <- rbind(Boyce, AUCmod, meanProb, meanBG)
+
+rowMeans(maxentEval_LF)
+rowMeans(maxentEval_allF)
+rowMeans(maxentEval_LF_bias)
+rowMeans(maxentEval_allF_bias)
+################################################################################
+>>>>>>> 3096d9eb733b7a142c7429d017dd51c8c5613ebd
