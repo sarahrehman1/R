@@ -1,0 +1,48 @@
+Tue Jul 20 22:38:29 BST 2021
+MaxEnt version 3.4.1
+Reading file absence
+readGrid: max memory 477626368, total allocated 251658240, free 144968472, used 106689768, increment -60565672
+Reading samples from presence
+Read samples: max memory 477626368, total allocated 250085376, free 78099872, used 171985504, increment 65295736
+Adding samples to background in feature space
+Command line used:  autorun -e C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir/absence -o C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir -s C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir/presence -z projectionlayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out
+Command line to repeat: java density.MaxEnt nowarnings noprefixes outputdirectory=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir projectionlayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out samplesfile=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir/presence environmentallayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir/absence autorun novisible
+Species: species
+Layers: GBR_msk_alt aspect bio10 bio19 bio2 bio3 bio7 bio8 bio9 layer slope totareaco2181 w001001
+Layertypes: Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous
+outputdirectory: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir
+projectionlayers: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out
+samplesfile: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir/presence
+environmentallayers: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/outputdir/absence
+autorun: true
+visible: false
+
+getSamples: max memory 477626368, total allocated 250085376, free 76666648, used 173418728, increment 1433224
+Making features
+makeFeatures: max memory 477626368, total allocated 260571136, free 148334144, used 112236992, increment -61181736
+species: 
+Regularization values: linear/quadratic/product: 0.116, categorical: 0.250, threshold: 1.230, hinge: 0.500
+77 samples
+Density: max memory 477626368, total allocated 260571136, free 129461000, used 131110136, increment 18873144
+linearPredictor: max memory 477626368, total allocated 260571136, free 129461000, used 131110136, increment 0
+FeaturedSpace: max memory 477626368, total allocated 260571136, free 129461000, used 131110136, increment 0
+Sequential: max memory 477626368, total allocated 260571136, free 129461000, used 131110136, increment 0
+Initial loss: 9.171599543659752
+Time since start: 21.244
+500: time = 21.021000 loss = 8.660058
+Resulting gain: 0.5115420316344323
+Projecting...
+Writing file C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\outputdir\species.csv
+Projecting...
+Layer GBR_msk_alt is missing from C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out
+java.lang.Exception
+	at density.Utils.logError(Utils.java:218)
+	at density.Utils.popupError(Utils.java:224)
+	at density.Utils.getGridAbsolutePath(Utils.java:108)
+	at density.Project.newGrid(Project.java:96)
+	at density.Project.getGrid(Project.java:65)
+	at density.Project.projectGrid(Project.java:210)
+	at density.Project.doProject(Project.java:112)
+	at density.Runner.start(Runner.java:555)
+	at mebridge.fit(mebridge.java:27)
+Ending
