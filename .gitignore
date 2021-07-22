@@ -3,5 +3,6 @@
 .RData
 .Ruserdata
 cmip5/
-occ_data/
-projection_file/
+projection_files/
+mx_out/
+data_predictors/
