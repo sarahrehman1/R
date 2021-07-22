@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+cmip5/
+occ_data/
+projection_file/

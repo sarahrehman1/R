@@ -1,0 +1,46 @@
+Tue Jul 20 23:38:12 BST 2021
+MaxEnt version 3.4.1
+Reading file absence
+readGrid: max memory 477626368, total allocated 192413696, free 83518680, used 108895016, increment 58229048
+Reading samples from presence
+Read samples: max memory 477626368, total allocated 200278016, free 123863824, used 76414192, increment -32480824
+Adding samples to background in feature space
+Command line used:  autorun -e C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/absence -o C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out -s C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/presence -z projectionlayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/projection_files
+Command line to repeat: java density.MaxEnt nowarnings noprefixes outputdirectory=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out projectionlayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/projection_files samplesfile=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/presence environmentallayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/absence autorun novisible
+Species: species
+Layers: GBR_msk_alt aspect bio10 bio19 bio2 bio3 bio7 bio8 bio9 layer slope totareaco2181 w001001
+Layertypes: Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous Continuous
+outputdirectory: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out
+projectionlayers: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/projection_files
+samplesfile: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/presence
+environmentallayers: C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/absence
+autorun: true
+visible: false
+
+getSamples: max memory 477626368, total allocated 200278016, free 122558480, used 77719536, increment 1305344
+Making features
+makeFeatures: max memory 477626368, total allocated 200278016, free 114922760, used 85355256, increment 7635720
+species: 
+Regularization values: linear/quadratic/product: 0.116, categorical: 0.250, threshold: 1.230, hinge: 0.500
+77 samples
+Density: max memory 477626368, total allocated 200278016, free 95938232, used 104339784, increment 18984528
+linearPredictor: max memory 477626368, total allocated 200278016, free 95938232, used 104339784, increment 0
+FeaturedSpace: max memory 477626368, total allocated 200278016, free 95938232, used 104339784, increment 0
+Sequential: max memory 477626368, total allocated 200278016, free 95938232, used 104339784, increment 0
+Initial loss: 9.174505918966966
+Time since start: 54.521
+500: time = 53.921000 loss = 8.668849
+Resulting gain: 0.505656763469096
+Projecting...
+Writing file C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\species.csv
+Projecting...
+Writing file C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\species_projection_files.asc
+Writing file C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\species_projection_files_clamping.asc
+Time since start: 89.381
+Writing C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\plots\species_projection_files.png
+Writing C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\plots\species_projection_files_clamping.png
+Time since start: 90.491
+Writing file C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\species_projection_files_novel.asc
+Writing file C:\Users\hanna\switchdrive\04_RESEARCH_PROJECTS\02_RESEARCH_PROJECTS\R\mx_out\species_projection_files_novel_limiting.asc
+Time since start: 127.438
+Ending
