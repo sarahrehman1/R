@@ -17,8 +17,6 @@ library(colorRamps)
 library(XML)
 library(sdmpredictors)
 library(ggplot2)
-#install.packages(sdm)
-install.packages(sdm)
 library(sdm)
 
 getwd()
@@ -566,6 +564,29 @@ mx
 #see script fitzpatrick_test_maxent_models.R
 # 9. future predictions ---------------------------------------------------
 
+#the aim would be to use multiple scenarios for one climate model 
+#and compare the effect of these scenarios on bryo distribution
+#ideally would take the average of multiple climate models for the same scenarios
+#but that is reaching too far here.
+
+#to compare the models, one would then just overlay the prediction from one scenartio on other
+#and visualise how the distributions change
+#to do this,
+#we need to know the "ideal" maxent model spec for current situation,
+#run that and save output
+
+#then get Cmip5 data for e.g. 3 scenarios, and save in sep folders.
+#save the bio layers with the future data and those too where 
+#data does not change, eg elev,in sep folders for each scenrario,
+#eg future_scenario1, future_scenario2 etc folders
+
+#then run maxent with same settings as for current, with stack 1 as predictors
+#but defining the new climate in arg (projectionlayers="pathtofuture_scenario1)
+#this projects the distr now in future given change in files specified in projectionlayers
+
+#then minus future-current mod to see areas where projection is different!
+
+#first fitzpatrick way - fake data.
 # let's try projecting to future climate. For simplicity, we will create
 # some fake future climate layers
 future <- stack1
@@ -634,19 +655,16 @@ temp<-temp1+temp2
     px<-stack(px,raster(paste0(outputdir,'\\',Species,'_',i,scene1)))
   }
 
-#from sdm course
+#however, more to be found in the sdm course
 # let's try projecting to future climate. For simplicity, we will create
 # some fake future climate layers
-future <- sdm_data
-
 future <- stack1
-str(stack1)
 names(stack1)
-
+#I am making messy non-sensical test data here
 future$bio8 <- future$bio8+40 # increase max temp by 4C (recall temp is 10x)
 future$bio9 <- future$bio9+80 # increase min temp by 8C (recall temp is 10x)
 #future$bio7 <- future$bio5-future$bio6 # recalculate temp annual range (bio7)
-future$slope <- future$slope*0.33 # decrease precipitaiton by 33%
+future$slope <- future$slope*0.33 # decrease slope by 33% !!!! crazy
 names(future)
 # save each layer to disk
 path <- paste(getwd(),"/projection_files/",sep="")
@@ -665,15 +683,23 @@ for(i in 1:length(projNames)){
 
 output <-paste(getwd(),"/mx_out/",sep="")
 future_clim<- paste(getwd(),"/projection_layers/",sep="")
-output #copy paste this in 
-future_clim #copy paste this in 
-
-mx <- maxent(x=stack1, 
+output #copy paste the output of this in below
+future_clim #copy paste the output of this in below
+#future
+mx_fut <- maxent(x=stack1, 
              p=pres_train, 
              #factors='biome',
              path="C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out",
              args=("projectionlayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/projection_files"))
-mx
+mx_fut
+#now
+mx_curr <- maxent(x=stack1, 
+                 p=pres_train,
+                 path="C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/temp")
+mx_curr
+
+plot(mx_curr-mx_fut)
+
 # Where the model extrapolating beyond the data?
 clamping <- raster("C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/species_projection_files_clamping.asc")
 # areas in red are problematic
@@ -706,6 +732,7 @@ future_uk <- projectRaster(future_uk, crs=27700)
 future_uk <- crop(future_uk, ext_uk)
 plot(future_uk) #ok
 
+#choose the same layers for the future data
 names(stack1)
 names(future_uk)
 names(future_uk) <- c('bio1','bio2','bio3', 'bio4', 'bio5','bio6','bio7','bio8','bio9','bio10','bio11','bio12','bio13','bio14','bio15','bio16','bio17','bio18','bio19')
@@ -731,13 +758,13 @@ output <-paste(getwd(),"/mx_out/",sep="")
 future_clim<- paste(getwd(),"/projection_layers/",sep="")
 output #copy paste this in below path
 future_clim #copy paste this in below args
-library(dismo)
-mx <- maxent(x=stack1, 
+
+mx_fut <- maxent(x=stack1, 
              p=pres_train, 
              #factors='biome',
              path="C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out",
              args=("projectionlayers=C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/projection_files"))
-mx
+mx_fut
 # Where the model extrapolating beyond the data?
 clamping <- raster("C:/Users/hanna/switchdrive/04_RESEARCH_PROJECTS/02_RESEARCH_PROJECTS/R/mx_out/species_projection_files_clamping.asc")
 # areas in red are problematic
